@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div th:fragment="sidebar">
+        <!-- Sidebar -->
+            <div id="sidebar-wrapper" >
+                <ul class="sidebar-nav">
+                    <!-- Dropdown Restaurateur start -->
+                    <dl class="list_dl">
+                        <dt class="list_dt">
+                            <p id="nom_restaurateur" th:text="${restaurateur.prenom} + '  ' + ${restaurateur.nom}">
+                        </dt>
+                        <dd class="list_dd">
+                            <ul>
+                                <tr th:each="resto : ${restos}">
+                                    <li class="list_li" id="open-actions" th:value="${resto.id}">
+                                        <p id="id_resto" th:text="${resto.nom}">
+                                    </li>
+                                </tr>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <!-- Dropdown Restaurateur end -->
+                    <div style="display: none" id="actions">
+                        <li>
+                            <a href="#">Tables</a>
+                        </li>
+                        <li>
+                            <a href="#">Menus</a>
+                        </li>
+                        <li>
+                            <a href="#">Commandes</a>
+                        </li>
+                        <li>
+                            <a href="#">Histoire</a>
+                        </li>
+                        <li>
+                            <a href="#">Revenus</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+
+
+<div th:fragment="script">
+    <!-- Menu Toggle Script -->
+    <script>
+        //open wapper
+        $("#menu-toggle-right").click(function(e) {
+            $("#right").hide();
+            $("#left").show();
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+
+        });
+        //close wapper
+        $("#menu-toggle-left").click(function(e){
+            $("#right").show();
+            $("#left").hide();
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        //open les actions
+        $("#open-actions").click(function(){
+            $("#nom_restaurateur").text($("#id_resto").text());
+            $("#actions").show();
+            //accordion slideup
+            $(".list_dt").removeAttr("id").siblings("dd").slideUp();
+        });
+        //Dropdown Restaurateur
+        $(".list_dt").on("click",function () {
+            $('.list_dd').stop();
+            $(this).siblings("dt").removeAttr("id");
+            if($(this).attr("id")=="open"){
+                $(this).removeAttr("id").siblings("dd").slideUp();
+            }else{
+                $(this).attr("id","open").next().slideDown().siblings("dd").slideUp();
+            }
+        });
+        /*
+        $.ajax(function(){
+            type:"POST",
+                dataType:"json",
+                url:"default.aspx",//请求页面
+                data:"{id=1}",
+                complete:function(){location.href ="default.aspx"}//跳转页面
+        })
+        */
+    </script>
+</div>
+<!-- /#wrapper -->
+</body>
+</html>
