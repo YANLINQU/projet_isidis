@@ -37,8 +37,13 @@ public class TablesService {
     public List<Tables> findAllTablesByResto(Resto resto){
         Tables table = new Tables();
         table.setIdresto(resto);
+        //table.setNumero(1);
         Example<Tables> example = Example.of(table);
-        return convert(tablesRepository.findAll(example));
+        Iterable<Tables> Itables=tablesRepository.findAll(example);
+        for(Tables t:Itables){
+            System.out.println("id:"+t.getId()+"  numero:"+t.getNumero());
+        }
+        return convert(Itables);
     }
 
     public List<Tables> convert(Iterable<Tables> tables){

@@ -62,4 +62,37 @@ public class Tables {
     public void setIdresto(Resto idresto) {
         this.idresto = idresto;
     }
+
+    @Override
+    public String toString() {
+        return "Tables{" +
+                "id='" + id + '\'' +
+                ", numero='" + numero + '\'' +
+                ", qr=" + qr +
+                ", idresto=" + idresto +
+                '}';
+    }
+
+    /*
+    recharcher equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tables that = (Tables) o;
+
+        if (idresto != null ? !idresto.equals(that.idresto) : that.idresto != null) return false;
+
+        return qr != null ? !qr.equals(that.qr) : that.qr == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = numero;
+        result = 31 * result + (qr != null ? qr.hashCode() : 0);
+        result = 31 * result + (idresto != null ? idresto.hashCode() : 0);
+        return result;
+    }
 }

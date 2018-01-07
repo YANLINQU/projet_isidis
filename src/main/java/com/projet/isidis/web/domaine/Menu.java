@@ -10,7 +10,7 @@ public class Menu {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column
-    private int id;
+    private Long id;
     @NotNull
     @Size(min=1, max=50)
     @Column
@@ -27,25 +27,25 @@ public class Menu {
     private String description;
     @Column
     private boolean activite;
-    /*
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_restaurateur")
-    private int restomenu;
 
-    @OneToMany(mappedBy="idmenu",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private Set<CommandeDetaille> commandes_detaille = new HashSet<CommandeDetaille>();
-    public void addCommande_detaille(CommandeDetaille commande_detaille){ this.commandes_detaille.add(commande_detaille); }
-    public Set<CommandeDetaille> getCommandes_detaille(){ return this.commandes_detaille; }
-    public void setCommandes_detaille(Set<CommandeDetaille> commandes_detaille){ this.commandes_detaille=commandes_detaille; }
-*/
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_restaurant")
+    private Resto restomenu;
+    /*
+        @OneToMany(mappedBy="idmenu",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+        private Set<CommandeDetaille> commandes_detaille = new HashSet<CommandeDetaille>();
+        public void addCommande_detaille(CommandeDetaille commande_detaille){ this.commandes_detaille.add(commande_detaille); }
+        public Set<CommandeDetaille> getCommandes_detaille(){ return this.commandes_detaille; }
+        public void setCommandes_detaille(Set<CommandeDetaille> commandes_detaille){ this.commandes_detaille=commandes_detaille; }
+    */
     public Menu() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,4 +89,11 @@ public class Menu {
         this.activite = activite;
     }
 
+    public Resto getRestomenu() {
+        return restomenu;
+    }
+
+    public void setRestomenu(Resto restomenu) {
+        this.restomenu = restomenu;
+    }
 }

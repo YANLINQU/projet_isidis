@@ -42,13 +42,13 @@ public class Resto {
         public void addTable(Tables table){ this.tables.add(table); }
         public Set<Tables> getTables(){ return this.tables; }
         public void setTables(Set<Tables> tables){ this.tables=tables; }
-    /*
+
         @OneToMany(mappedBy="restomenu",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
         private Set<Menu> menus = new HashSet<Menu>();
         public void addMenu(Menu menu){ this.menus.add(menu);}
         public Set<Menu> getMenus(){ return this.menus;}
         public void setMenus(Set<Menu> menus){this.menus=menus;}
-    */
+
     public Resto() {
     }
 
@@ -106,5 +106,36 @@ public class Resto {
 
     public void setIdrestaurateur(Restaurateur idrestaurateur) {
         this.idrestaurateur = idrestaurateur;
+    }
+
+    @Override
+    public String toString() {
+        return "Resto{" +
+                "id='" + id + '\'' +
+                ", nom='" + nom + '\'' +
+                '}';
+    }
+
+    /*
+    recharcher equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Resto that = (Resto) o;
+
+        if (idrestaurateur != null ? !idrestaurateur.equals(that.idrestaurateur) : that.idrestaurateur != null) return false;
+
+        return nom != null ? !nom.equals(that.nom) : that.nom == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.intValue();
+        result = 31 * result + (nom != null ? nom.hashCode() : 0);
+        result = 31 * result + (adresse != null ? adresse.hashCode() : 0);
+        return result;
     }
 }

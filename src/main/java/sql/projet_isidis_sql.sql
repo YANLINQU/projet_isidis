@@ -64,7 +64,11 @@ primary key (id),
 foreign key (id_resto) references resto(id)
 );
 
-insert into tables (numero,qr,id_resto) values (1,null,1)
+insert into tables (numero,qr,id_resto) values (1,'',1);
+insert into tables (numero,qr,id_resto) values (2,'',1);
+insert into tables (numero,qr,id_resto) values (3,'',1);
+insert into tables (numero,qr,id_resto) values (4,'',1);
+insert into tables (numero,qr,id_resto) values (5,'',1);
 
 create table commande
 (
@@ -79,6 +83,8 @@ primary key (id),
 foreign key (id_table) references tables(id)
 );
 
+
+
 create table menu
 (
 id int not null AUTO_INCREMENT,
@@ -91,6 +97,11 @@ id_restaurant int,
 primary key (id),
 foreign key (id_restaurant) references resto(id)
 );
+
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('FirstMenu','',15.3,'description',TRUE,1);
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('SecondeMenu','',18.3,'description',TRUE,1);
 
 create table commande_detaille
 (

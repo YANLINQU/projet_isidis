@@ -9,18 +9,37 @@
     <th:block th:include="fragments/sidebar :: sidebar"></th:block>
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div id="contenu"></div>
-            <div id="right" style="display:block">
+            <div id="right" style="display:none">
                 <a href="#menu-toggle" id="menu-toggle-right" style="text-decoration: none"> >> </a>
             </div>
-            <div id="left" style="display:none">
+            <div id="left" style="display:block">
                 <a href="#menu-toggle" id="menu-toggle-left" style="text-decoration: none"> << </a>
+            </div>
+
+            <div class="container" id="contenu_tables" style="display: none">
+                <table class="table" id="tab">
+                    <tr>
+                        <td>Numero</td>
+                        <td>QR</td>
+                        <td>Construire QR</td>
+                        <td>Suprrime Table</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="container" id="contenu_menus" style="display: none">
+                <table class="table" id="menu">
+                    <tr>
+                        <td>Nomme</td>
+                        <td>Image</td>
+                        <td>Prix</td>
+                        <td>Activite</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
 </div>
-
-    <th:block th:include="fragments/sidebar :: script"></th:block>
 </body>
+<script src="../../static/isidis.js" th:src="@{/isidis.js}" ></script>
 </html>
