@@ -2,6 +2,8 @@ package com.projet.isidis.web.domaine;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(schema = "projet_isidis",name = "tables")
@@ -21,13 +23,13 @@ public class Tables {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_resto")
     private Resto idresto;
-    /*
+
         @OneToMany(mappedBy="idtable",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
         private Set<Commande> commandes = new HashSet<Commande>();
         public void addCommande(Commande commande){ this.commandes.add(commande); }
         public Set<Commande> getCommandes(){ return this.commandes; }
         public void setCommandes(Set<Commande> commandes){ this.commandes=commandes; }
-    */
+
     public Tables() {
     }
 

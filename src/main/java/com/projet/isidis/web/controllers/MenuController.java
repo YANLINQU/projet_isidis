@@ -13,13 +13,12 @@ import java.util.List;
 
 @RestController
 public class MenuController {
-    @Autowired
-    private MenuService menuService;
+
     @Autowired
     private RestoService restoService;
 
     @RequestMapping("menus/{id}")
-    public List<Menu> findeTables(@PathVariable Long id){
+    public List<Menu> findeMenus(@PathVariable Long id){
         System.out.println("Hello Menus!");
         List<Menu> menusByResto = new ArrayList<Menu>(this.restoService.findOneResto(id).getMenus());
         for(Menu m:menusByResto){

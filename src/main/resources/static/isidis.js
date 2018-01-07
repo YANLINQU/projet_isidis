@@ -47,7 +47,7 @@ $("#resto_tables").click(function(){
         dataType : "json",
         success:function(data) {
             if(!$("#contenu_tables").is(":visible")){
-                $("#contenu_tables tr:not(:first)").empty();
+                $("#tab tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
                 divShowAndHide("contenu_tables");
                 $.each(data, function(i,item){
                     tablecontenu(item);
@@ -69,7 +69,7 @@ $("#resto_menus").click(function(){
         dataType : "json",
         success:function(data) {
             if(!$("#contenu_menus").is(":visible")){
-                $("#contenu_menus tr:not(:first)").empty();
+                $("#menu tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
                 divShowAndHide("contenu_menus");
                 var trHtml="";
                 $.each(data, function(i,item){
@@ -83,9 +83,31 @@ $("#resto_menus").click(function(){
     });
     e.preventDefault();//do nothing
 });
+//resto_tables on click pour afficher les tables dans un resto
+$("#resto_commande").click(function(){
+    $.ajax({
+        url:'http://localhost:8080/commande/1',
+        type:"GET",
+        cache : false,
+        dataType : "json",
+        success:function(data) {
+            if(!$("#contenu_commandes").is(":visible")){
+                $("#commande tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
+                divShowAndHide("contenu_commandes");
+                $.each(data, function(i,item){
+                    commandecontenu(item);
+                });
+            }
+        },
+        error: function(){
+            //message d'error
+        }
+    });
+    e.preventDefault();//do nothing
+});
 
 function tablecontenu(item){
-    trHtml=
+    var trHtml=
         "<tr>" +
         "<td>"+item.id+"</td>" +
         "<td>"+item.qr+"</td>" +
@@ -96,8 +118,7 @@ function tablecontenu(item){
     $tr.after(trHtml);
 }
 function menuscontenu(item){
-
-    trHtml=
+    var trHtml=
         "<tr>" +
         "<td>"+item.nomme+"</td>" +
         "<td>"+item.imageadresse+"</td>" +
@@ -107,10 +128,24 @@ function menuscontenu(item){
     var $tr=$("#menu tr:last");
     $tr.after(trHtml);
 }
+function commandecontenu(item){
+    var trHtml=
+        "<tr>" +
+        "<td>"+item.idtable+"</td>" +
+        "<td>"+item.datecommande+"</td>" +
+        "<td>"+item.id_client+"</td>" +
+        "<td>"+item.montant+"</td>" +
+        "<td>"+item.paiement+"</td>" +
+        "<td>"+item.valider+"</td>" +
+        "</tr>";
+    var $tr=$("#commande tr:last");
+    $tr.after(trHtml);
+}
 
 function divShowAndHide(divShow){
     $("#contenu_tables").hide();
     $("#contenu_menus").hide();
+    $("#contenu_commandes").hide();
 
     $("#"+divShow).show();
 }

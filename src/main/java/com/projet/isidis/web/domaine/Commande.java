@@ -2,6 +2,7 @@ package com.projet.isidis.web.domaine;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -12,21 +13,22 @@ public class Commande {
     @Column
     private Long id;
     @NotNull
-    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date date;
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    private Date datecommande;
     @Column(columnDefinition="Decimal(5,2) default '0.00'")
     private float montant;
     @Column
     private boolean paiement;
     @Column
     private boolean valider;
-    private int client;
+    @Column
+    private int id_client;
 
-/*
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_table")
-    private int idtable;
+    private Tables idtable;
 
+/*
     @OneToMany(mappedBy="idcommande",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private Set<CommandeDetaille> commandes_detaille = new HashSet<CommandeDetaille>();
     public void addCommande_detaille(CommandeDetaille commande_detaille){ this.commandes_detaille.add(commande_detaille); }
@@ -44,12 +46,13 @@ public class Commande {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDatecommande() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(datecommande);
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDatecommande(Date datecommande) {
+        this.datecommande = datecommande;
     }
 
     public float getMontant() {
@@ -76,12 +79,19 @@ public class Commande {
         this.valider = valider;
     }
 
-    public int getClient() {
-        return client;
+    public Tables getIdtable() {
+        return idtable;
     }
 
-    public void setClient(int client) {
-        this.client = client;
+    public void setIdtable(Tables idtable) {
+        this.idtable = idtable;
     }
 
+    public int getId_client() {
+        return id_client;
+    }
+
+    public void setId_client(int id_client) {
+        this.id_client = id_client;
+    }
 }

@@ -73,7 +73,7 @@ insert into tables (numero,qr,id_resto) values (5,'',1);
 create table commande
 (
 id int not null AUTO_INCREMENT,
-datecommande timestamp,
+datecommande DATETIME,
 montant decimal(10,2),
 paiement boolean,
 valider boolean,
@@ -83,7 +83,14 @@ primary key (id),
 foreign key (id_table) references tables(id)
 );
 
-
+insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
+        ('1970-01-05 20:23:24',35.6,TRUE ,FALSE ,1,1);
+insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
+        ('1970-01-02 20:23:24',46,FALSE ,FALSE ,2,1);
+insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
+        ('1970-01-03 20:23:24',46,FALSE ,TRUE ,3,1);
+insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
+        ('1970-01-04 20:23:24',46,TRUE ,TRUE ,4,1);
 
 create table menu
 (
