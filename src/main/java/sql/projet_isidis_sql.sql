@@ -79,18 +79,19 @@ paiement boolean,
 valider boolean,
 id_table int,
 id_client int,
+id_menu int,
 primary key (id),
 foreign key (id_table) references tables(id)
 );
 
 insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
-        ('1970-01-05 20:23:24',35.6,TRUE ,FALSE ,1,1);
+        ('1970-01-05 20:23:24',35.6,TRUE ,FALSE ,1,1,1);
 insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
-        ('1970-01-02 20:23:24',46,FALSE ,FALSE ,2,1);
+        ('1970-01-02 20:23:24',46,FALSE ,FALSE ,2,1,1);
 insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
-        ('1970-01-03 20:23:24',46,FALSE ,TRUE ,3,1);
+        ('1970-01-03 20:23:24',46,FALSE ,TRUE ,3,1,2);
 insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
-        ('1970-01-04 20:23:24',46,TRUE ,TRUE ,4,1);
+        ('1970-01-04 20:23:24',46,TRUE ,TRUE ,4,1,2);
 
 create table menu
 (
