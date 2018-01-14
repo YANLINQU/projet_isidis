@@ -24,9 +24,11 @@ public class Commande {
     @Column
     private int id_client;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id_table")
-    private Tables idtable;
+    //@ManyToOne(fetch=FetchType.LAZY)
+    //@JoinColumn(name="id_table")
+    //private Tables idtable;
+    @Column
+    private int id_table;
 
 /*
     @OneToMany(mappedBy="idcommande",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
@@ -79,19 +81,19 @@ public class Commande {
         this.valider = valider;
     }
 
-    public Tables getIdtable() {
-        return idtable;
-    }
-
-    public void setIdtable(Tables idtable) {
-        this.idtable = idtable;
-    }
-
     public int getId_client() {
         return id_client;
     }
 
     public void setId_client(int id_client) {
         this.id_client = id_client;
+    }
+
+    public int getId_table() {
+        return id_table;
+    }
+
+    public void setId_table(int id_table) {
+        this.id_table = id_table;
     }
 }

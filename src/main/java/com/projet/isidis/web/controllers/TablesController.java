@@ -27,7 +27,7 @@ public class TablesController {
         List<Tables> tablesByResto = new ArrayList<Tables>(this.restoService.findOneResto(id).getTables());
         for(Tables t:tablesByResto){
             t.setIdresto(null);
-            t.setCommandes(null);
+            //t.setCommandes(null);
         }
         return tablesByResto;
     }

@@ -131,7 +131,7 @@ function menuscontenu(item){
 function commandecontenu(item){
     var trHtml=
         "<tr>" +
-        "<td>"+item.idtable+"</td>" +
+        "<td>"+item.id_table+"</td>" +
         "<td>"+item.datecommande+"</td>" +
         "<td>"+item.id_client+"</td>" +
         "<td>"+item.montant+"</td>" +
