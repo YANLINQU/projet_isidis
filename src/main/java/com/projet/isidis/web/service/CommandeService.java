@@ -24,4 +24,11 @@ public class CommandeService {
         }
         return null;
     }
+
+    public boolean commande_menu(Commande commande){
+        if(commandeRepository.save(commande)!=null)
+            return true;
+        else
+            return false;
+    }
 }
