@@ -120,3 +120,10 @@ primary key (id),
 foreign key (id_commande) references commande(id),
 foreign key (id_menu) references menu(id)
 );
+
+
+
+
+alter table commande add column id_menu int not null;
+alter table menu drop column id_menu;
+update commande set id_menu=2 where id=4;

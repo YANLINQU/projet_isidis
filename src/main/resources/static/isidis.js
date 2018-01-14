@@ -121,19 +121,22 @@ function menuscontenu(item){
     var trHtml=
         "<tr>" +
         "<td>"+item.nomme+"</td>" +
-        "<td>"+item.imageadresse+"</td>" +
+        "<td><img src="+item.imageadresse+" height=\"100\" width=\"100\" ></td>" +
         "<td>"+item.prix+"</td>" +
         "<td>"+item.activite+"</td>" +
         "</tr>";
     var $tr=$("#menu tr:last");
     $tr.after(trHtml);
 }
+
+
 function commandecontenu(item){
     var trHtml=
         "<tr>" +
         "<td>"+item.id_table+"</td>" +
         "<td>"+item.datecommande+"</td>" +
         "<td>"+item.id_client+"</td>" +
+        "<td>"+item.id_menu+"</td>" +
         "<td>"+item.montant+"</td>" +
         "<td>"+item.paiement+"</td>" +
         "<td>"+item.valider+"</td>" +

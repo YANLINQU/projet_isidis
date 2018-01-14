@@ -30,6 +30,11 @@ public class Commande {
     @Column
     private int id_table;
 
+    @Column
+    private int id_menu;
+
+
+
 /*
     @OneToMany(mappedBy="idcommande",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private Set<CommandeDetaille> commandes_detaille = new HashSet<CommandeDetaille>();
@@ -95,5 +100,13 @@ public class Commande {
 
     public void setId_table(int id_table) {
         this.id_table = id_table;
+    }
+
+    public int getId_menu() {
+        return id_menu;
+    }
+
+    public void setId_menu(int id_menu) {
+        this.id_menu = id_menu;
     }
 }

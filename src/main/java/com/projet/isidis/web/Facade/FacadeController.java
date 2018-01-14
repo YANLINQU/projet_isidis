@@ -29,12 +29,9 @@ public class FacadeController {
      */
     @RequestMapping("menus/{id}")
     public List<Menu> findeMenus(@PathVariable Long id){
-        System.out.println("Hello Menus!");
         List<Menu> menusByResto = new ArrayList<Menu>(this.restoService.findOneResto(id).getMenus());
-        for(Menu m:menusByResto){
+        for(Menu m:menusByResto)
             m.setRestomenu(null);
-            System.out.println("Nomme:"+m.getNomme());
-        }
         return menusByResto;
     }
 

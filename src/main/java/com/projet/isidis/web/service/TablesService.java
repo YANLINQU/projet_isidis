@@ -40,9 +40,7 @@ public class TablesService {
         //table.setNumero(1);
         Example<Tables> example = Example.of(table);
         Iterable<Tables> Itables=tablesRepository.findAll(example);
-        for(Tables t:Itables){
-            System.out.println("id:"+t.getId()+"  numero:"+t.getNumero());
-        }
+
         return convert(Itables);
     }
 
