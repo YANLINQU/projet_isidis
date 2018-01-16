@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+
+<body>
+    <a href="#" id="menu_comande">Valider</a>
+</body>
+<script type="text/javascript">
+    var websocket = null;
+    $(function(){
+        $("#wrapper").toggleClass("toggled");
+        $.ajax({
+            url:'http://localhost:8080/websocket/login/Client',
+            type:"GET",
+            cache : false,
+            dataType : "json",
+            success:function(data) {
+                //var websocket=null;
+                if ('WebSocket' in window) {
+                    websocket = new WebSocket("ws://localhost:8080/webSocketIMServer");
+                } else if ('MozWebSocket' in window) {
+                    websocket = new MozWebSocket("ws://localhost:8080/webSocketIMServer");
+                } else {
+                    websocket = new SockJS("http://localhost:8080/webSocketIMServer");
+                }
+                websocket.onopen = onOpen;
+                websocket.onmessage = onMessage;
+                websocket.onerror = onError;
+                websocket.onclose = onClose;
+
+                function onOpen(openEvt) {
+                    //alert("open");
+                    //alert(openEvt.Data);
+                }
+
+                function onMessage(evt) {
+                    alert(evt.data);
+                }
+
+                function onError() {}
+                function onClose() {}
+            },
+            error: function(){
+                //message d'error
+            }
+        });
+    });
+
+    $("#menu_comande").click(function(){
+
+        $.ajax({
+            url:"http://localhost:8080/commandeMenu/1",
+            type:"GET",
+            cache : false,
+            dataType : "json",
+            success:function(data){
+                if (websocket.readyState == websocket.OPEN) {
+                    var msg = "Hello Test WebSocket";
+                    websocket.send("#SuShiKan#"+msg);//utiliser la function handleTextMessage au backend
+                    //alert("success!");
+                } else {
+                    alert("faild!");
+                }
+            },
+            error:function(e){
+
+            }
+        });
+    });
+</script>
+</html>

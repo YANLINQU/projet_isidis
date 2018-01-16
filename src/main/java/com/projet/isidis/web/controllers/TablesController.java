@@ -21,10 +21,13 @@ import java.util.*;
 public class TablesController {
     @Autowired
     private RestoService restoService;
+    @Autowired
+    private TablesService tablesService;
 
     @RequestMapping("tables/{id}")
     public List<Tables> findeTables(@PathVariable Long id){
-        List<Tables> tablesByResto = new ArrayList<Tables>(this.restoService.findOneResto(id).getTables());
+        //List<Tables> tablesByResto = new ArrayList<Tables>(this.restoService.findOneResto(id).getTables());
+        List<Tables> tablesByResto = tablesService.findAllTables();
         for(Tables t:tablesByResto){
             t.setIdresto(null);
             //t.setCommandes(null);

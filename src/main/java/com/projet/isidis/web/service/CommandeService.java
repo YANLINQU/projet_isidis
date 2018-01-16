@@ -3,6 +3,7 @@ package com.projet.isidis.web.service;
 import com.projet.isidis.web.domaine.Commande;
 import com.projet.isidis.web.repositories.CommandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class CommandeService {
     }
 
     public List<Commande> findAllCommandes(){
-        return convert(this.commandeRepository.findAll());
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        return convert(this.commandeRepository.findAll(sort));
     }
 
     public boolean commande_menu(Commande commande){

@@ -14,6 +14,7 @@ public class RestauratuerController {
     @Autowired
     private RestaurateurSevice restaurateurSevice;
 
+
     @RequestMapping("/")
     public String index(Model model){
         //System.out.println("Hello");
@@ -21,6 +22,11 @@ public class RestauratuerController {
         model.addAttribute("restaurateur",restaurateur);
         model.addAttribute("restos",restaurateur.getRestos());
         return "index";
+    }
+
+    @RequestMapping("/Client")
+    public String index(){
+        return "Client";
     }
 
 }

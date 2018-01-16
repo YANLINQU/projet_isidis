@@ -6,6 +6,7 @@ import com.projet.isidis.web.domaine.Tables;
 import com.projet.isidis.web.repositories.TablesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -42,6 +43,11 @@ public class TablesService {
         Iterable<Tables> Itables=tablesRepository.findAll(example);
 
         return convert(Itables);
+    }
+
+    public List<Tables> findAllTables(){
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        return convert(tablesRepository.findAll(sort));
     }
 
     public List<Tables> convert(Iterable<Tables> tables){

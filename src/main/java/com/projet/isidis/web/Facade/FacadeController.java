@@ -43,6 +43,7 @@ public class FacadeController {
      */
     @PostMapping(value = "/menuCommande")
     public boolean enregistrerUneCommande(Commande m_commande){
+        System.out.println("enregistrerUneCommande");
         Commande commande = m_commande;
         return commandeService.commande_menu(commande);
     }

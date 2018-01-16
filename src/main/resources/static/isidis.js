@@ -4,6 +4,67 @@ YANLIN QU
  */
 $(function(){
     $("#wrapper").toggleClass("toggled");
+
+    $.ajax({
+        url:'http://localhost:8080/websocket/login/SuShiKan',
+        type:"GET",
+        cache : false,
+        dataType : "json",
+        success:function(data) {
+            var websocket=null;
+            if ('WebSocket' in window) {
+                websocket = new WebSocket("ws://localhost:8080/webSocketIMServer");
+            } else if ('MozWebSocket' in window) {
+                websocket = new MozWebSocket("ws://localhost:8080/webSocketIMServer");
+            } else {
+                websocket = new SockJS("http://localhost:8080/webSocketIMServer");
+            }
+            websocket.onopen = onOpen;
+            websocket.onmessage = onMessage;
+            websocket.onerror = onError;
+            websocket.onclose = onClose;
+
+            function onOpen(openEvt) {
+                //alert("open");
+                //alert(openEvt.Data);
+            }
+
+            function onMessage(evt) {
+                $("#contenu_commandes").hide();
+                $.ajax({
+                    url:'http://localhost:8080/commande/1',
+                    type:"GET",
+                    cache : false,
+                    dataType : "json",
+                    success:function(data) {
+                        if(!$("#contenu_commandes").is(":visible")){
+                            $("#commandes tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
+                            divShowAndHide("contenu_commandes");
+                            $.each(data, function(i,item){
+                                commandecontenu(item);
+                            });
+                            swal({
+                                title: "Vous avez reçu une nouvelle commande ！",
+                                text: "",
+                                timer: 2000,
+                                showConfirmButton: false
+                            });
+                            var audio = new Audio("music/son.mp3");
+                            audio.play();
+                        }
+                    },
+                    error: function(){
+                        //message d'error
+                    }
+                });
+            }
+            function onError() {}
+            function onClose() {}
+        },
+        error: function(){
+            //message d'error
+        }
+    });
 });
 //open wapper
 $("#menu-toggle-right").click(function(e) {
@@ -92,7 +153,7 @@ $("#resto_commande").click(function(){
         dataType : "json",
         success:function(data) {
             if(!$("#contenu_commandes").is(":visible")){
-                $("#commande tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
+                $("#commandes tr:not(:first)").empty();//enlever toutes ligne dans la table sauf que la premiere
                 divShowAndHide("contenu_commandes");
                 $.each(data, function(i,item){
                     commandecontenu(item);
@@ -110,13 +171,14 @@ function tablecontenu(item){
     var trHtml=
         "<tr>" +
         "<td>"+item.id+"</td>" +
-        "<td>"+item.qr+"</td>" +
-        "<td> <button type=\"button\" class=\"btn btn-success\">Créer</button> </td>" +
+        "<td><a href="+item.qr+">DownLoad</a></td>" +
         "<td> <button type=\"button\" class=\"btn btn-danger\">Supprimer</button></td>" +
         "</tr>";
     var $tr=$("#tab tr:last");
     $tr.after(trHtml);
 }
+
+
 function menuscontenu(item){
     var trHtml=
         "<tr>" +
@@ -141,7 +203,7 @@ function commandecontenu(item){
         "<td>"+item.paiement+"</td>" +
         "<td>"+item.valider+"</td>" +
         "</tr>";
-    var $tr=$("#commande tr:last");
+    var $tr=$("#commandes tr:last");
     $tr.after(trHtml);
 }
 
