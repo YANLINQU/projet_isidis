@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Menus</title>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+<body>
+<div style="display: none">
+    <input type='text' id='id_table' th:value="${idtable}">
+</div>
+
+<div class="container" id="contenu_menus" >
+    <table class="table" id="menu">
+        <tr>
+            <td>ID</td>
+            <td>Nomme</td>
+            <td>Image</td>
+            <td>Prix</td>
+            <td>Commander</td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    //192.168.0.19
+    var connection="http://192.168.0.19:8080/projet_isidis/";
+    var connectionws="ws://192.168.0.19:8080/projet_isidis/";
+    var id_table = document.getElementById("id_table").value;
+$(function(){
+    var soapMessage ='<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:proj="http://iaws/resto/menus/projet">\n' +
+        '   <soapenv:Header/>\n' +
+        '   <soapenv:Body>\n' +
+        '      <proj:MenusRequest>\n' +
+        '         <proj:id_table>'+id_table+'</proj:id_table>\n' +
+        '      </proj:MenusRequest>\n' +
+        '   </soapenv:Body>\n' +
+        '</soapenv:Envelope>';
+
+    $.ajax({
+        url:connection+'websocket/login/Client',
+        type:"GET",
+        cache : false,
+        dataType : "json",
+        success:function(data) {
+            //var websocket=null;
+            if ('WebSocket' in window) {
+                websocket = new WebSocket(connectionws+"webSocketIMServer");
+            } else if ('MozWebSocket' in window) {
+                websocket = new MozWebSocket(connectionws+"webSocketIMServer");
+            } else {
+                websocket = new SockJS(connection+"webSocketIMServer");
+            }
+            websocket.onopen = onOpen;
+            websocket.onmessage = onMessage;
+            websocket.onerror = onError;
+            websocket.onclose = onClose;
+
+            function onOpen(openEvt) {
+                //alert("open");
+                //alert(openEvt.Data);
+            }
+
+            function onMessage(evt) {
+                alert(evt.data);
+            }
+
+            function onError() {}
+            function onClose() {}
+        },
+        error: function(){
+            //message d'error
+        }
+    });
+
+    $.ajax({
+        contentType:'text/xml;charset="UTF-8"',
+        dataType:'xml',
+        type:'post',
+        url:connection+'ws',
+        data:soapMessage,
+        success:function(data) {
+            $(data).find("ns2\\:Menus").each(function(i,item){
+                var id_menu=$(item).children("ns2\\:id_menu").text();
+                var name=$(item).children("ns2\\:nomme").text();
+                var image=$(item).children("ns2\\:image").text();
+                var prix=$(item).children("ns2\\:prix").text();
+                menuscontenu(id_menu,name,image,prix);
+            });
+        },
+        error: function(){
+            //message d'error
+        }
+    });
+});
+
+
+
+function menuscontenu(idmenu,name,image,prix){
+    var adresse="../"+image;
+    var im=idmenu;
+    var trHtml=
+        "<tr>" +
+        "<td>"+idmenu+"</td>" +
+        "<td>"+name+"</td>" +
+        "<td><img src="+adresse+" height=\"100\" width=\"100\" ></td>" +
+        "<td>"+prix+"</td>" +
+        "<td><input type=\"button\" class=\"btn btn-primary\" value=\"Commander\" onclick=\"CommandeMenu(id_table,"+im+")\"/></td>" +
+        "</tr>";
+    var $tr=$("#menu tr:last");
+    $tr.after(trHtml);
+}
+
+
+
+function CommandeMenu(id,idmenu){
+    $.ajax({
+        url:connection+"commandeMenu/"+id+"/"+idmenu,
+        type:"GET",
+        cache : false,
+        dataType : "json",
+        success:function(data){
+            if (websocket.readyState == websocket.OPEN) {
+                var msg = "Hello Test WebSocket";
+                websocket.send("#SuShiKan#"+msg);//utiliser la function handleTextMessage au backend
+                swal({
+                    title: "Merci de votre commande ！",
+                    text: "",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                //alert("success!");
+            } else {
+                alert("faild!");
+            }
+        },
+        error:function(e){
+
+        }
+    });
+}
+</script>
+<div id="wsdl">
+</div>
+</body>
+</html>
