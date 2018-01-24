@@ -1,9 +1,11 @@
 package com.projet.isidis.web.controllers;
 
 import com.projet.isidis.web.domaine.Commande;
+import com.projet.isidis.web.domaine.Menu;
 import com.projet.isidis.web.domaine.Restaurateur;
 import com.projet.isidis.web.domaine.Tables;
 import com.projet.isidis.web.service.CommandeService;
+import com.projet.isidis.web.service.MenuService;
 import com.projet.isidis.web.service.RestoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -19,7 +21,7 @@ import java.util.List;
 @RestController
 public class CommandeController {
     @Autowired
-    private RestoService restoService;
+    private MenuService menuService;
     @Autowired
     private CommandeService commandeService;
 
@@ -29,13 +31,15 @@ public class CommandeController {
     }
 
 
-    @RequestMapping("commandeMenu/{id}")
-    public boolean menuCommande(@PathVariable Long id){
+    @RequestMapping("commandeMenu/{id}/{id_menu}")
+    public boolean menuCommande(@PathVariable Long id,@PathVariable Long id_menu){
+        System.out.println("id_table:"+id+"  id_menu:"+id_menu);
+        Menu menu = menuService.findOneMenu(id_menu);
         Commande commande = new Commande();
         commande.setId_client(1);
-        commande.setId_menu(1);
-        commande.setId_table(1);
-        commande.setMontant(Float.valueOf("15.60"));
+        commande.setId_menu(id_menu.intValue());
+        commande.setId_table(id.intValue());
+        commande.setMontant(Float.valueOf(menu.getPrix()));
         commande.setPaiement(false);
         commande.setValider(false);
         Date today = new Date();

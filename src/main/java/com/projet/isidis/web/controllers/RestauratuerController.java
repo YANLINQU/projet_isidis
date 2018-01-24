@@ -6,6 +6,8 @@ import com.projet.isidis.web.service.RestaurateurSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -25,8 +27,15 @@ public class RestauratuerController {
     }
 
     @RequestMapping("/Client")
-    public String index(){
+    public String Client(){
         return "Client";
     }
 
+
+    @RequestMapping("Menus/{id}")
+    public String Menus(@PathVariable Long id, Model model){
+        //System.out.println("menus soap commande");
+        model.addAttribute("idtable", id);
+        return "Menus";
+    }
 }

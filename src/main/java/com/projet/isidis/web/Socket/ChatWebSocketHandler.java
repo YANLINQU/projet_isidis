@@ -48,7 +48,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         String userId = (String) session.getAttributes().get(USER_ID);
         users.put(userId,session);
         System.out.println(userId+" se connecter!");
-        System.out.println("le nombre de User on line:"+users.size());
+        System.out.println("Users on line:"+users.size());
         //sessions.add(session);
     }
     //traitement apres se connecter

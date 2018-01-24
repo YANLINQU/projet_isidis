@@ -2,22 +2,24 @@
 YANLIN QU
 05/01/2018
  */
+var connection="http://localhost:8080/projet_isidis/";
+var connectionws="ws://localhost:8080/projet_isidis/";
 $(function(){
     $("#wrapper").toggleClass("toggled");
-
+    var audioEle = document.getElementById("audio");
     $.ajax({
-        url:'http://localhost:8080/websocket/login/SuShiKan',
+        url:connection+'websocket/login/SuShiKan',
         type:"GET",
         cache : false,
         dataType : "json",
         success:function(data) {
             var websocket=null;
             if ('WebSocket' in window) {
-                websocket = new WebSocket("ws://localhost:8080/webSocketIMServer");
+                websocket = new WebSocket(connectionws+"webSocketIMServer");
             } else if ('MozWebSocket' in window) {
-                websocket = new MozWebSocket("ws://localhost:8080/webSocketIMServer");
+                websocket = new MozWebSocket(connectionws+"webSocketIMServer");
             } else {
-                websocket = new SockJS("http://localhost:8080/webSocketIMServer");
+                websocket = new SockJS(connection+"webSocketIMServer");
             }
             websocket.onopen = onOpen;
             websocket.onmessage = onMessage;
@@ -32,7 +34,7 @@ $(function(){
             function onMessage(evt) {
                 $("#contenu_commandes").hide();
                 $.ajax({
-                    url:'http://localhost:8080/commande/1',
+                    url:connection+'commande/1',
                     type:"GET",
                     cache : false,
                     dataType : "json",
@@ -43,14 +45,14 @@ $(function(){
                             $.each(data, function(i,item){
                                 commandecontenu(item);
                             });
+                            //var audio = new Audio("music/son.mp3");
+                            audioEle.play();
                             swal({
                                 title: "Vous avez reçu une nouvelle commande ！",
                                 text: "",
                                 timer: 2000,
                                 showConfirmButton: false
                             });
-                            var audio = new Audio("music/son.mp3");
-                            audio.play();
                         }
                     },
                     error: function(){
@@ -102,7 +104,7 @@ $(".list_dt").on("click",function () {
 //resto_tables on click pour afficher les tables dans un resto
 $("#resto_tables").click(function(){
     $.ajax({
-        url:'http://localhost:8080/tables/1',
+        url:connection+'tables/1',
         type:"GET",
         cache : false,
         dataType : "json",
@@ -124,7 +126,7 @@ $("#resto_tables").click(function(){
 //resto_tables on click pour afficher les tables dans un resto
 $("#resto_menus").click(function(){
     $.ajax({
-        url:'http://localhost:8080/menus/1',
+        url:connection+'menus/1',
         type:"GET",
         cache : false,
         dataType : "json",
@@ -147,7 +149,7 @@ $("#resto_menus").click(function(){
 //resto_tables on click pour afficher les tables dans un resto
 $("#resto_commande").click(function(){
     $.ajax({
-        url:'http://localhost:8080/commande/1',
+        url:connection+'commande/1',
         type:"GET",
         cache : false,
         dataType : "json",

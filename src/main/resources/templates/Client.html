@@ -9,22 +9,24 @@
     <a href="#" id="menu_comande">Valider</a>
 </body>
 <script type="text/javascript">
+    var connection="http://localhost:8080/projet_isidis/";
+    var connectionws="ws://localhost:8080/projet_isidis/";
     var websocket = null;
     $(function(){
         $("#wrapper").toggleClass("toggled");
         $.ajax({
-            url:'http://localhost:8080/websocket/login/Client',
+            url:connection+'websocket/login/Client',
             type:"GET",
             cache : false,
             dataType : "json",
             success:function(data) {
                 //var websocket=null;
                 if ('WebSocket' in window) {
-                    websocket = new WebSocket("ws://localhost:8080/webSocketIMServer");
+                    websocket = new WebSocket(connectionws+"webSocketIMServer");
                 } else if ('MozWebSocket' in window) {
-                    websocket = new MozWebSocket("ws://localhost:8080/webSocketIMServer");
+                    websocket = new MozWebSocket(connectionws+"webSocketIMServer");
                 } else {
-                    websocket = new SockJS("http://localhost:8080/webSocketIMServer");
+                    websocket = new SockJS(connection+"webSocketIMServer");
                 }
                 websocket.onopen = onOpen;
                 websocket.onmessage = onMessage;
@@ -52,7 +54,7 @@
     $("#menu_comande").click(function(){
 
         $.ajax({
-            url:"http://localhost:8080/commandeMenu/1",
+            url:connection+"commandeMenu/1",
             type:"GET",
             cache : false,
             dataType : "json",
