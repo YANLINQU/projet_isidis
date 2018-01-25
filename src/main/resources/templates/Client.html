@@ -9,11 +9,12 @@
     <a href="#" id="menu_comande">Valider</a>
 </body>
 <script type="text/javascript">
-    var connection="http://localhost:8080/projet_isidis/";
-    var connectionws="ws://localhost:8080/projet_isidis/";
+    var connection="http://localhost:8080/";
+    var connectionws="ws://localhost:8080/";
     var websocket = null;
     $(function(){
         $("#wrapper").toggleClass("toggled");
+        alert(connection +"websocket/login/Client");
         $.ajax({
             url:connection+'websocket/login/Client',
             type:"GET",

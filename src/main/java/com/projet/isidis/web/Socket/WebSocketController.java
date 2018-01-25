@@ -25,6 +25,7 @@ public class WebSocketController {
     public boolean login(HttpServletRequest request, HttpServletResponse response,
                         @PathVariable String nom_resto) throws Exception {
         String username = nom_resto;
+        System.out.println("Monsieur:"+username+" nous connecte !");
         HttpSession session = request.getSession(true);
         session.setAttribute("SESSION_USERNAME", username); //conserver le user dans une session
         //System.out.println("session_username:"+(String) session.getAttribute("SESSION_USERNAME"));
@@ -34,16 +35,16 @@ public class WebSocketController {
     @RequestMapping("/websocket/send")
     public String send(HttpServletRequest request) {
         String username = request.getParameter("username");
-        infoHandler().sendMessageToUser(username, new TextMessage("你好，测试！！！！"));
+        infoHandler().sendMessageToUser(username, new TextMessage("holle test！！！！"));
         return null;
     }
-
+/*
     @RequestMapping("/websocket/broad")
     public  String broad() {
-        infoHandler().sendMessageToUsers(new TextMessage("发送一条小Broad"));
-        System.out.println("群发成功");
+        infoHandler().sendMessageToUsers(new TextMessage("send Broad"));
+        System.out.println("send for every one");
         return "broad";
     }
-
+*/
 
 }

@@ -73,17 +73,20 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
      * @param message
      */
     public void sendMessageToUser(String userId, TextMessage message) {
+        //System.out.println("Send to message:"+userId);
         for (String id : users.keySet()) {
-            System.out.println("users.key:"+id);
-            if (id.equals(userId)) {
-                try {
-                    if (users.get(id).isOpen()) {
-                        users.get(id).sendMessage(message);
+            //System.out.println("users.key:" + id);
+            if (id != null) {
+                if (id.equals(userId)) {
+                    try {
+                        if (users.get(id).isOpen()) {
+                            users.get(id).sendMessage(message);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    break;
                 }
-                break;
             }
         }
     }

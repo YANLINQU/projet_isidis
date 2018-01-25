@@ -22,8 +22,7 @@ public class Commande {
     @Column
     private boolean valider;
     @Column
-    private int id_client;
-
+    private String client_name;
     //@ManyToOne(fetch=FetchType.LAZY)
     //@JoinColumn(name="id_table")
     //private Tables idtable;
@@ -31,7 +30,7 @@ public class Commande {
     private int id_table;
 
     @Column
-    private int id_menu;
+    private String menu_name;
 
 
 
@@ -86,14 +85,6 @@ public class Commande {
         this.valider = valider;
     }
 
-    public int getId_client() {
-        return id_client;
-    }
-
-    public void setId_client(int id_client) {
-        this.id_client = id_client;
-    }
-
     public int getId_table() {
         return id_table;
     }
@@ -102,11 +93,19 @@ public class Commande {
         this.id_table = id_table;
     }
 
-    public int getId_menu() {
-        return id_menu;
+    public String getClient_name() {
+        return client_name;
     }
 
-    public void setId_menu(int id_menu) {
-        this.id_menu = id_menu;
+    public void setClient_name(String client_name) {
+        this.client_name = client_name;
+    }
+
+    public String getMenu_name() {
+        return menu_name;
+    }
+
+    public void setMenu_name(String menu_name) {
+        this.menu_name = menu_name;
     }
 }

@@ -28,6 +28,10 @@ public class CommandeService {
         return null;
     }
 
+    public void save(Commande commande){
+        commandeRepository.save(commande);
+    }
+
     public List<Commande> findAllCommandes(){
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         return convert(this.commandeRepository.findAll(sort));

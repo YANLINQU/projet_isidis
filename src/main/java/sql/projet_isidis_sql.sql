@@ -78,8 +78,8 @@ montant decimal(10,2),
 paiement boolean,
 valider boolean,
 id_table int,
-id_client int,
-id_menu int,
+client_name varchar(255),
+menu_name varchar(255),
 primary key (id),
 foreign key (id_table) references tables(id)
 );
@@ -107,9 +107,23 @@ foreign key (id_restaurant) references resto(id)
 );
 
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('FirstMenu','',15.3,'description',TRUE,1);
+    ('Fruits de mer','',15.3,'description',TRUE,1);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('SecondeMenu','',18.3,'description',TRUE,1);
+    ('BBQ','',18.3,'description',TRUE,1);
+
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('Blanquette de Veau','',22,'description',TRUE,1);
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('Boudin Noir Aux Pommes','',19.6,'description',TRUE,1);
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('Coquilles Saint-Jacques','',20.6,'description',TRUE,1);
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('Hachis Parmentier','',22.6,'description',TRUE,1);
+insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
+    ('Pot-au-feu','',26.6,'description',TRUE,1);
+
+
+
 
 create table commande_detaille
 (
@@ -122,8 +136,18 @@ foreign key (id_commande) references commande(id),
 foreign key (id_menu) references menu(id)
 );
 
+create table user_client
+(
+id int not null AUTO_INCREMENT,
+nom varchar(50),
+pwd varchar(50),
+prenom varchar(50),
+primary key (id)
+)
 
-
+insert into user_client (nom,pwd,prenom) VALUES ('Maxence','1111','Habinka')
+insert into user_client (nom,pwd,prenom) VALUES ('QU','2222','YANLIN')
+Drop table user_client;
 
 alter table commande add column id_menu int not null;
 alter table menu drop column id_menu;

@@ -2,8 +2,8 @@
 YANLIN QU
 05/01/2018
  */
-var connection="http://localhost:8080/projet_isidis/";
-var connectionws="ws://localhost:8080/projet_isidis/";
+var connection="http://localhost:8080/";
+var connectionws="ws://localhost:8080/";
 $(function(){
     $("#wrapper").toggleClass("toggled");
     var audioEle = document.getElementById("audio");
@@ -199,8 +199,8 @@ function commandecontenu(item){
         "<tr>" +
         "<td>"+item.id_table+"</td>" +
         "<td>"+item.datecommande+"</td>" +
-        "<td>"+item.id_client+"</td>" +
-        "<td>"+item.id_menu+"</td>" +
+        "<td>"+item.client_name+"</td>" +
+        "<td>"+item.menu_name+"</td>" +
         "<td>"+item.montant+"</td>" +
         "<td>"+item.paiement+"</td>" +
         "<td>"+item.valider+"</td>" +

@@ -6,8 +6,8 @@
 	<groupId>com.projet.isidis</groupId>
 	<artifactId>projet_isidis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!--<packaging>jar</packaging>-->
-	<packaging>war</packaging>
+	<!--<packaging>war</packaging>-->
+	<packaging>jar</packaging>
 
 	<name>projet_isidis</name>
 	<description>Demo project for Spring Boot</description>
@@ -141,11 +141,13 @@
 			<version>1.6.1</version>
 		</dependency>
 		<!-- war start -->
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		-->
 		<!-- war end -->
 	</dependencies>
 

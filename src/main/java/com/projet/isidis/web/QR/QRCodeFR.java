@@ -48,7 +48,7 @@ public class QRCodeFR {
 	public void construireQR(String name,int id_table){
 		String filePostfix="png";
 		File file = new File("src\\main\\resources\\static\\images\\"+name+"."+filePostfix);
-		this.encode("localhost:8080/menus/1/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
+		this.encode("http://192.168.0.19:8080/menus/1/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
 	}
 
 	/**

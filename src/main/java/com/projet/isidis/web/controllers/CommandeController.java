@@ -1,9 +1,7 @@
 package com.projet.isidis.web.controllers;
 
-import com.projet.isidis.web.domaine.Commande;
-import com.projet.isidis.web.domaine.Menu;
-import com.projet.isidis.web.domaine.Restaurateur;
-import com.projet.isidis.web.domaine.Tables;
+import com.projet.isidis.web.domaine.*;
+import com.projet.isidis.web.service.ClientsService;
 import com.projet.isidis.web.service.CommandeService;
 import com.projet.isidis.web.service.MenuService;
 import com.projet.isidis.web.service.RestoService;
@@ -24,20 +22,23 @@ public class CommandeController {
     private MenuService menuService;
     @Autowired
     private CommandeService commandeService;
+    @Autowired
+    private ClientsService clientsService;
 
     @RequestMapping("commande/{id}")
     public List<Commande> menuCommande(){
         return commandeService.findAllCommandes();
     }
 
-
+/*
     @RequestMapping("commandeMenu/{id}/{id_menu}")
     public boolean menuCommande(@PathVariable Long id,@PathVariable Long id_menu){
         System.out.println("id_table:"+id+"  id_menu:"+id_menu);
+        String client=clientsService.findOneById()
         Menu menu = menuService.findOneMenu(id_menu);
         Commande commande = new Commande();
-        commande.setId_client(1);
-        commande.setId_menu(id_menu.intValue());
+        commande.setClient_name(1);
+        commande.setMenu_name(menu.getNomme());
         commande.setId_table(id.intValue());
         commande.setMontant(Float.valueOf(menu.getPrix()));
         commande.setPaiement(false);
@@ -46,19 +47,23 @@ public class CommandeController {
         commande.setDatecommande(today);
         return commandeService.commande_menu(commande);
     }
-    /*
-    public List<Commande> menuCommande(@PathVariable Long id){
-        System.out.println("Hello Menus!");
-        List<Tables> tablesByResto = new ArrayList<Tables>(this.restoService.findOneResto(id).getTables());
-        List<Commande> commandesByResto = new ArrayList<Commande>();
-        for(Tables t:tablesByResto){
-            commandesByResto.addAll(new ArrayList<Commande>(t.getCommandes()));
-        }
-        for(Commande c:commandesByResto){
-            c.setIdtable(null);
-            System.out.println("datecommande:"+c.getDatecommande());
-        }
-        return commandesByResto;
+*/
+    @RequestMapping("/commandeMenu")
+    public boolean menuCommandeByClient( String id_table,
+                                         String id_client,
+                                         String id_menu){
+        System.out.println("id_table:"+id_table+" id_client:"+id_client+" id_menu:"+id_menu);
+        Menu menu = menuService.findOneMenu(Long.valueOf(id_menu));
+        User_Client client = clientsService.findOneById(Long.valueOf(id_client));
+        Commande commande = new Commande();
+        commande.setDatecommande(new Date());
+        commande.setValider(false);
+        commande.setPaiement(false);
+        commande.setMontant(menu.getPrix());
+        commande.setId_table(Integer.valueOf(id_table));
+        commande.setMenu_name(menu.getNomme());
+        commande.setClient_name(client.getNom());
+        commandeService.save(commande);
+        return true;
     }
-    */
 }
