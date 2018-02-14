@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Menus</title>
-    <th:block th:include="fragments/headerinc :: head"></th:block>
+    <link href="../static/bootstrap.min.css" th:href="@{/bootstrap.min.css}" rel ="stylesheet" media ="screen" />
+    <link href="../static/sweetalert.css" th:href="@{/sweetalert.css}" rel="stylesheet" media="screen" />
+    <script src="../static/jquery.min.js" th:src="@{/jquery.min.js}" ></script>
+    <script src="../static/sweetalert.min.js" th:src="@{/sweetalert.min.js}" ></script>
 </head>
 <body>
 <div style="display: none">
@@ -12,7 +15,6 @@
 <div class="container" id="contenu_menus" >
     <table class="table" id="menu">
         <tr>
-            <td>ID</td>
             <td>Nomme</td>
             <td>Image</td>
             <td>Prix</td>
@@ -22,9 +24,11 @@
 </div>
 
 <script type="text/javascript">
-    //192.168.0.19
-    var connection="http://localhost:8080/";
-    var connectionws="ws://localhost:8080/";
+    //192.168.0.19:8080/
+    //var connection="http://vps507764.ovh.net:8080/projet_isidis/";
+    //var connectionws="ws://vps507764.ovh.net:8080/projet_isidis/";
+    var connection="http://vps507764.ovh.net:8080/projet_isidis/";
+    var connectionws="ws://vps507764.ovh.net:8080/projet_isidis/";
     var id_table = document.getElementById("id_table").value;
 $(function(){
     var soapMessage ='<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:proj="http://iaws/resto/menus/projet">\n' +
@@ -100,27 +104,29 @@ function menuscontenu(idmenu,name,image,prix){
     var im=idmenu;
     var trHtml=
         "<tr>" +
-        "<td>"+idmenu+"</td>" +
         "<td>"+name+"</td>" +
         "<td><img src="+adresse+" height=\"100\" width=\"100\" ></td>" +
         "<td>"+prix+"</td>" +
-        "<td><input type=\"button\" class=\"btn btn-primary\" value=\"Commander\" onclick=\"CommandeMenu(id_table,"+im+")\"/></td>" +
+        "<td><input type=\"button\" class=\"btn btn-primary\" value=\"Commander\" onclick=\"entrerVotreNom(id_table,"+im+")\"/></td>" +
         "</tr>";
     var $tr=$("#menu tr:last");
     $tr.after(trHtml);
 }
 
+function entrerVotreNom(id_table,id_menu){
+    var nom = window.prompt("Entrer votre nom,s'il vous plait !", "")
+    CommandeMenu(id_table,id_menu,nom);
+}
 
-
-function CommandeMenu(id,idmenu){
+function CommandeMenu(id_table,id_menu,nom){
     $.ajax({
-        url:connection+"commandeMenu/"+id+"/"+idmenu,
+        url:connection+"commandeMenu/"+id_table+"/"+id_menu+"/"+nom,
         type:"GET",
         cache : false,
         dataType : "json",
         success:function(data){
             if (websocket.readyState == websocket.OPEN) {
-                var msg = "Hello Test WebSocket";
+                var msg = nom+" reussi un commande!";
                 websocket.send("#SuShiKan#"+msg);//utiliser la function handleTextMessage au backend
                 swal({
                     title: "Merci de votre commande ！",

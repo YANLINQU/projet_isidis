@@ -1,11 +1,8 @@
-create table user
-(
-id INTEGER not null AUTO_INCREMENT,
-username varchar(45),
-primary key (id)
-);
-
 mysql -u root -p;
+
+create database projet_isidis;
+use projet_isidis;
+
 use projet_isidis;
 
 Drop table commande_detaille;
@@ -35,7 +32,7 @@ primary key (id),
 UNIQUE (email)
 );
 
-insert into restaurateur (nom,prenom,pwd,email,sex,portable,telephone,adresse,ville,postal,pays,id_identity,datenaissance) values 
+insert into restaurateur (nom,prenom,pwd,email,sex,portable,telephone,adresse,ville,postal,pays,id_identity,datenaissance) values
 	('QU','YANLIN','qu001','quyanlingg@hotmail.com','M','0664973861','0664973861','74 marin la meslee','calais','62100','frence','477064','1970-01-01');
 
 create table resto
@@ -51,8 +48,8 @@ primary key (id),
 FOREIGN key (id_restaurateur) references restaurateur(id)
 );
 
-insert into resto (nom,adresse,ville,postal,revenu,id_restaurateur) values 
-	('SUSHI KAN','24, Avenue de U.R.S.S.','TOULOUSE','31000','0',4);
+insert into resto (nom,adresse,ville,postal,revenu,id_restaurateur) values
+('SUSHI KAN','24, Avenue de U.R.S.S.','TOULOUSE','31000','0',1);
 
 create table tables
 (
@@ -64,24 +61,23 @@ primary key (id),
 foreign key (id_resto) references resto(id)
 );
 
-insert into tables (numero,qr,id_resto) values (1,'',1);
-insert into tables (numero,qr,id_resto) values (2,'',1);
-insert into tables (numero,qr,id_resto) values (3,'',1);
-insert into tables (numero,qr,id_resto) values (4,'',1);
-insert into tables (numero,qr,id_resto) values (5,'',1);
+insert into tables (numero,qr,id_resto) values (1,'images/1.png',3);
+insert into tables (numero,qr,id_resto) values (2,'images/2.png',3);
+insert into tables (numero,qr,id_resto) values (3,'images/3.png',3);
+insert into tables (numero,qr,id_resto) values (4,'images/4.png',3);
+insert into tables (numero,qr,id_resto) values (5,'images/5.png',3);
 
 create table commande
 (
 id int not null AUTO_INCREMENT,
-datecommande DATETIME,
+datecommande TIMESTAMP,
 montant decimal(10,2),
 paiement boolean,
 valider boolean,
 id_table int,
 client_name varchar(255),
 menu_name varchar(255),
-primary key (id),
-foreign key (id_table) references tables(id)
+primary key (id)
 );
 
 insert into commande (datecommande,montant,paiement,valider,id_table,id_client) VALUES
@@ -107,20 +103,19 @@ foreign key (id_restaurant) references resto(id)
 );
 
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('Fruits de mer','',15.3,'description',TRUE,1);
+    ('Fruits de mer','images/Fruitsdemer.jpg',15.3,'description',TRUE,3);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('BBQ','',18.3,'description',TRUE,1);
-
+    ('BBQ','images/BBQ.jpg',18.3,'description',TRUE,3);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('Blanquette de Veau','',22,'description',TRUE,1);
+    ('Blanquette de Veau','images/BlanquettedeVeau.jpg',22,'description',TRUE,3);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('Boudin Noir Aux Pommes','',19.6,'description',TRUE,1);
+    ('Boudin Noir Aux Pommes','images/BoudinNoirAuxPommes.jpg',19.6,'description',TRUE,3);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('Coquilles Saint-Jacques','',20.6,'description',TRUE,1);
+    ('Coquilles Saint-Jacques','images/CoquillesSaint-Jacques.jpg',20.6,'description',TRUE,3);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('Hachis Parmentier','',22.6,'description',TRUE,1);
+    ('Hachis Parmentier','images/HachisParmentier.jpg',22.6,'description',TRUE,3);
 insert into menu (nomme,imageadresse,prix,description,activite,id_restaurant) VALUES
-    ('Pot-au-feu','',26.6,'description',TRUE,1);
+    ('Pot-au-feu','images/Pot-au-feu.jpg',26.6,'description',TRUE,3);
 
 
 
@@ -145,9 +140,9 @@ prenom varchar(50),
 primary key (id)
 )
 
-insert into user_client (nom,pwd,prenom) VALUES ('Maxence','1111','Habinka')
-insert into user_client (nom,pwd,prenom) VALUES ('QU','2222','YANLIN')
-Drop table user_client;
+insert into user_client (nom,pwd,prenom) VALUES ('Maxence','1111','Habinka');
+insert into user_client (nom,pwd,prenom) VALUES ('QU','2222','YANLIN');
+Drop table user_client;;
 
 alter table commande add column id_menu int not null;
 alter table menu drop column id_menu;

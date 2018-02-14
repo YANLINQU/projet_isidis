@@ -6,7 +6,10 @@
 	<groupId>com.projet.isidis</groupId>
 	<artifactId>projet_isidis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!--<packaging>war</packaging>-->
+	<!--
+	war pour web
+	jar pour local
+	-->
 	<packaging>jar</packaging>
 
 	<name>projet_isidis</name>
@@ -121,20 +124,6 @@
 			<version>1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>javax.websocket</groupId>
-			<artifactId>javax.websocket-api</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.websocket</groupId>
-			<artifactId>javax.websocket-api</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>wsdl4j</groupId>
 			<artifactId>wsdl4j</artifactId>

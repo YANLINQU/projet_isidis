@@ -19,7 +19,9 @@ public class RestauratuerController {
 
     @RequestMapping("/")
     public String index(Model model){
-        //System.out.println("Hello");
+        //web serveur
+        //Restaurateur restaurateur = restaurateurSevice.findOneRestaurateur(Long.valueOf(1));
+        //local
         Restaurateur restaurateur = restaurateurSevice.findOneRestaurateur(Long.valueOf(4));
         model.addAttribute("restaurateur",restaurateur);
         model.addAttribute("restos",restaurateur.getRestos());

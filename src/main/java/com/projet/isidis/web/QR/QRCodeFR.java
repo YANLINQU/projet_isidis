@@ -43,12 +43,20 @@ public class QRCodeFR {
 		test.construireQR("2",2);
 		test.construireQR("3",3);
 		test.construireQR("4",4);
+		test.construireQR("5",5);
 	}
 
 	public void construireQR(String name,int id_table){
 		String filePostfix="png";
 		File file = new File("src\\main\\resources\\static\\images\\"+name+"."+filePostfix);
-		this.encode("http://192.168.0.19:8080/menus/1/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
+		//lien de android local
+		//this.encode("http://192.168.0.19:8080/menus/3/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
+		//lien de web android
+		this.encode("http://vps507764.ovh.net:8080/projet_isidis/menus/3/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
+		//lien de web soap
+		//this.encode("http://vps507764.ovh.net:8080/projet_isidis/Menus/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
+		//lien de soap local
+		//this.encode("http://192.168.0.19:8080/Menus/"+id_table, file,filePostfix, BarcodeFormat.QR_CODE, 5000, 5000, null);
 	}
 
 	/**

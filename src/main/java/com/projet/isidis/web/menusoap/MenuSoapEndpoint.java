@@ -20,7 +20,7 @@ public class MenuSoapEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "MenusRequest")
     @ResponsePayload
     public RestoMenusType getMenus(@RequestPayload MenusRequest request) {
-        System.out.println("Recu SOAP!");
+        //System.out.println("Recu SOAP: "+request.getIdTable());
         RestoMenusType response = menusRepository.findAllMenus(Long.valueOf("1"),request.getIdTable());
         return response;
     }

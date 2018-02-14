@@ -2,8 +2,10 @@
 YANLIN QU
 05/01/2018
  */
-var connection="http://localhost:8080/";
-var connectionws="ws://localhost:8080/";
+//vps507764.ovh.net:8080/projet_isidis/
+//localhost:8080/
+var connection="http://vps507764.ovh.net:8080/projet_isidis/";
+var connectionws="ws://vps507764.ovh.net:8080/projet_isidis/";
 $(function(){
     $("#wrapper").toggleClass("toggled");
     var audioEle = document.getElementById("audio");
@@ -125,8 +127,9 @@ $("#resto_tables").click(function(){
 });
 //resto_tables on click pour afficher les tables dans un resto
 $("#resto_menus").click(function(){
+    //url:connection+'menus/3',
     $.ajax({
-        url:connection+'menus/1',
+        url:connection+'menus/3',
         type:"GET",
         cache : false,
         dataType : "json",
@@ -168,11 +171,10 @@ $("#resto_commande").click(function(){
     });
     e.preventDefault();//do nothing
 });
-
 function tablecontenu(item){
     var trHtml=
         "<tr>" +
-        "<td>"+item.id+"</td>" +
+        "<td>"+item.numero+"</td>" +
         "<td><a href="+item.qr+">DownLoad</a></td>" +
         "<td> <button type=\"button\" class=\"btn btn-danger\">Supprimer</button></td>" +
         "</tr>";
