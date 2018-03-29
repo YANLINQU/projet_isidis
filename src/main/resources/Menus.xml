@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RestoMenus xmlns="http://iaws/resto/menus/projet" >
+    <name>sushikan</name>
+    <tablecommande>1</tablecommande>
+    <MenusAll>
+        <Menus>
+            <id_menu>1</id_menu>
+            <nomme>Fruits de mer</nomme>
+            <image>../../images/Fruitsdemer.jpg</image>
+            <prix>15.30</prix>
+        </Menus>
+        <Menus>
+            <id_menu>2</id_menu>
+            <nomme>BBQ</nomme>
+            <image>../../images/BBQ.jpg</image>
+            <prix>18.30</prix>
+        </Menus>
+    </MenusAll>
+</RestoMenus>

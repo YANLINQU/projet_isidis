@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+
+<body>
+    <a href="#" id="menu_comande">Valider</a>
+</body>
+<script type="text/javascript">
+    var connection="http://vps507764.ovh.net:8080/projet_isidis/";
+    var connectionws="ws://vps507764.ovh.net:8080/projet_isidis/";
+    //var connection="http://localhost:8080/";
+    //var connectionws="ws://localhost:8080/";
+    var websocket = null;
+    $(function(){
+        $("#wrapper").toggleClass("toggled");
+        alert(connection +"websocket/login/Client");
+        $.ajax({
+            url:connection+'websocket/login/Client',
+            type:"GET",
+            cache : false,
+            dataType : "json",
+            success:function(data) {
+                //var websocket=null;
+                if ('WebSocket' in window) {
+                    websocket = new WebSocket(connectionws+"webSocketIMServer");
+                } else if ('MozWebSocket' in window) {
+                    websocket = new MozWebSocket(connectionws+"webSocketIMServer");
+                } else {
+                    websocket = new SockJS(connection+"webSocketIMServer");
+                }
+                websocket.onopen = onOpen;
+                websocket.onmessage = onMessage;
+                websocket.onerror = onError;
+                websocket.onclose = onClose;
+
+                function onOpen(openEvt) {
+                    //alert("open");
+                    //alert(openEvt.Data);
+                }
+
+                function onMessage(evt) {
+                    alert(evt.data);
+                }
+
+                function onError() {}
+                function onClose() {}
+            },
+            error: function(){
+                //message d'error
+            }
+        });
+    });
+
+    $("#menu_comande").click(function(){
+
+        $.ajax({
+            url:connection+"commandeMenu/1",
+            type:"GET",
+            cache : false,
+            dataType : "json",
+            success:function(data){
+                if (websocket.readyState == websocket.OPEN) {
+                    var msg = "Hello Test WebSocket";
+                    websocket.send("#SuShiKan#"+msg);//utiliser la function handleTextMessage au backend
+                    //alert("success!");
+                } else {
+                    alert("faild!");
+                }
+            },
+            error:function(e){
+
+            }
+        });
+    });
+</script>
+</html>

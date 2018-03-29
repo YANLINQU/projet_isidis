@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>index</title>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+</head>
+<body>
+<audio id="audio" src="music/son.mp3"></audio>
+<div id="wrapper" >
+    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div id="right" style="display:none">
+                <a href="#menu-toggle" id="menu-toggle-right" style="text-decoration: none"> >> </a>
+            </div>
+            <div id="left" style="display:block">
+                <a href="#menu-toggle" id="menu-toggle-left" style="text-decoration: none"> << </a>
+            </div>
+
+                <div class="container h-100 d-flex" id="intro">
+                    <div class="jumbotron my-auto">
+                        <h1 class="display-4">Bienvenue sur votre espace personnel</h1>
+                        <p class="lead">Gérez vos tables, menus et commandes à l'aide du menu déroulant de gauche.</p>
+                    </div>
+                </div>
+
+            <div class="container" id="contenu_tables" style="display: none">
+                <h2 class="text-center">Vos tables</h2>
+                <table class="table table-bordered" id="tab">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Numéro de table</th>
+                            <th scope="col">QR Code</th>
+                            <th scope="col">Suprimer la table</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <div class="form-group row">
+                    <label for="example-number-input" class="col-2 col-form-label">Ajouter des tables</label>
+                    <div class="col-1">
+                        <input class="form-control" type="number" id="example-number-input">
+                    </div>
+                    <button type="submit" class="btn btn-primary ajoutTables">Ajouter</button>
+                </div>
+            </div>
+            <div class="container" id="contenu_menus" style="display: none">
+                <h2 class="text-center">Vos menus</h2>
+                <table class="table table-bordered" id="menu">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Prix</th>
+                            <th scope="col">Disponible</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="container" id="contenu_commandes" style="display: none">
+                <h2 class="text-center">Vos commandes</h2>
+                <table class="table table-bordered" id="commandes">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Numéro Table</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Menu</th>
+                            <th scope="col">Montant</th>
+                            <th scope="col">Paiement</th>
+                            <th scope="col">Terminée</th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <div class="form-check">
+                    <input class="form-check-input commandesValidees" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Cacher les commandes terminées
+                    </label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+
+</body>
+
+<script src="../../static/isidis1.js" th:src="@{/isidis1.js}" ></script>
+</html>

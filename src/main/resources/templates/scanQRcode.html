@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="fragments/headerinc :: head"></th:block>
+    <link href="../../static/client.css" th:href="@{/client.css}" rel="stylesheet" media="screen"/>
+    <script src="../../static/client.js" th:src="@{/client.js}" ></script>
+    <script src="../../static/jsQRScan.1.0.min.js" th:src="@{/jsQRScan.1.0.min.js}" ></script>
+</head>
+
+<body>
+
+<th:block th:replace="fragments/headerinc :: menu"></th:block>
+
+<div id="qrCode">
+    <h1 class="text-center"  >Veuillez scanner le QR code sur votre table S.V.P</h1>
+    <div id="camera"></div>
+    <div class="cache" id="idClient" th:text="${loggedInUserID}"></div>
+</div>
+<style>
+    #camera{
+        position:relative;
+        margin: 100px auto auto auto;
+        width:200px;
+        height:200px;
+        border: 1px solid black;
+        box-shadow: 0px 0px 3px 2px inset black;
+    }
+    canvas{
+        display:none;
+    }
+</style>
+<script>
+    var url ="http://192.168.43.246:8080/Client/3/1/";
+    url.concat($("#idClient").text());
+    url.concat("/commander");
+
+    scanner = new jsQRScan({
+        'id': 'camera',
+        'width': 200,
+        'height': 200,
+        'callbackSuccess': redirect,
+        'callbackEnd': error,
+        'scanMaxDuration':5000,
+        'scanInterval': 50
+    });
+    function redirect(){
+        //alert('trouvé');
+       window.location.href(url);
+
+        $("#qrCode").hide();
+        $(".cache").show();
+    }
+    function error(){
+        window.location.href(url);
+        //alert('pas trouvé');
+        $("#qrCode").hide();
+        $(".cache").show();
+    }
+</script>
+
+
+</body>
+
+<!--
+<script type="text/javascript">
+    var connection="http://vps507764.ovh.net:8080/projet_isidis/";
+    var connectionws="ws://vps507764.ovh.net:8080/projet_isidis/";
+    var websocket = null;
+    $(function(){
+        $("#wrapper").toggleClass("toggled");
+        alert(connection +"websocket/login/Client");
+        $.ajax({
+            url:connection+'websocket/login/Client',
+            type:"GET",
+            cache : false,
+            dataType : "json",
+            success:function(data) {
+                //var websocket=null;
+                if ('WebSocket' in window) {
+                    websocket = new WebSocket(connectionws+"webSocketIMServer");
+                } else if ('MozWebSocket' in window) {
+                    websocket = new MozWebSocket(connectionws+"webSocketIMServer");
+                } else {
+                    websocket = new SockJS(connection+"webSocketIMServer");
+                }
+                websocket.onopen = onOpen;
+                websocket.onmessage = onMessage;
+                websocket.onerror = onError;
+                websocket.onclose = onClose;
+
+                function onOpen(openEvt) {
+                    //alert("open");
+                    //alert(openEvt.Data);
+                }
+
+                function onMessage(evt) {
+                    alert(evt.data);
+                }
+
+                function onError() {}
+                function onClose() {}
+            },
+            error: function(){
+                //message d'error
+            }
+        });
+    });
+
+    $("#menu_comande").click(function(){
+
+        $.ajax({
+            url:connection+"commandeMenu/1",
+            type:"GET",
+            cache : false,
+            dataType : "json",
+            success:function(data){
+                if (websocket.readyState == websocket.OPEN) {
+                    var msg = "Hello Test WebSocket";
+                    websocket.send("#SuShiKan#"+msg);//utiliser la function handleTextMessage au backend
+                    //alert("success!");
+                } else {
+                    alert("faild!");
+                }
+            },
+            error:function(e){
+
+            }
+        });
+    });
+</script>
+
+-->
+
+</html>

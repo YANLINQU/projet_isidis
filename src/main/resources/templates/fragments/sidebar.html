@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+
+</div>
+        <div th:fragment="sidebar">
+            <!-- Sidebar start -->
+            <div id="sidebar-wrapper" >
+                <ul class="sidebar-nav">
+                    <!-- Dropdown Restaurateur start -->
+                    <dl class="list_dl">
+                        <dt class="list_dt">
+                            <p id="nom_restaurateur" th:text="${restaurateur.prenom} + '  ' + ${restaurateur.nom}">
+                        </dt>
+                        <dd class="list_dd">
+                            <ul>
+                                <tr th:each="resto : ${restos}">
+                                    <li class="list_li" id="open-actions" th:value="${resto.id}">
+                                        <p id="id_resto" th:text="${resto.nom}" >
+                                    </li>
+                                </tr>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <!-- Dropdown Restaurateur end -->
+                    <div style="display: none" id="actions">
+                        <li>
+                            <a href="#" id="resto_tables">Tables</a>
+                        </li>
+                        <li>
+                            <a href="#" id="resto_menus">Menus</a>
+                        </li>
+                        <li>
+                            <a href="#" id="resto_commande">Commandes</a>
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <!-- Sidebar end-->
+        </div>
+<!-- /#wrapper -->
+</body>
+</html>

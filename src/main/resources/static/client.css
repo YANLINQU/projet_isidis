@@ -1,0 +1,50 @@
+.nbChoix{
+    display: none;
+    border: 0;
+}
+html,
+body {
+    height: 100%
+}
+
+
+.rouge{
+    color: red;
+}
+.choixOptionnel{
+    display: none;
+}
+
+.menu{
+    width:initial;
+    height:50%;
+    overflow:hidden;
+    min-height: 10%;
+}
+
+.menus:focus{
+    background-color: rgba(255,0,0,0.2);
+}
+
+.ecart{
+    margin-bottom: 100px;
+}
+
+form{
+    width: 50%;
+}
+.cache{
+    display: none;
+}
+
+#camera{
+    position:relative;
+    margin: 100px auto auto auto;
+    width:200px;
+    height:200px;
+    border: 1px solid black;
+    box-shadow: 0px 0px 3px 2px inset black;
+}
+canvas{
+    display:none;
+}
